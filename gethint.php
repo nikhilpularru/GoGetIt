@@ -1,5 +1,7 @@
 <?php
 // Array with names
+// Only few cities has been referenced here.
+// For more visit justdial.com
 $a[] = "Ahemdabad";
 $a[] = "Agra";
 $a[] = "Allahabad";
@@ -100,60 +102,12 @@ $a[] = "Mysore";
 $a[] = "Mahabalipuram";
 $a[] = "Madhubani";
 $a[] = "Madikeri";
-/*$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-$a[] = "";
-*/
-
 // get the q parameter from URL
 $q = $_REQUEST["q"];
 
 $hint = "";
 
-// lookup all hints from array if $q is different from "" 
+// lookup all hints from array if $q is different from 
 if ($q !== "") {
     $q = strtolower($q);
     $len=strlen($q);
