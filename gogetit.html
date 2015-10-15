@@ -1,0 +1,169 @@
+<!-- 
+    Author: Nikhil Pularru
+    B. Tech. (Computer Science)
+    3rd Year Student At Shiv Nadar University
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="bootstrap/css/index.css">
+<title>GoGetIt</title>
+<script>
+var page=1;
+var srch1="",region1="",near1="";
+
+
+function showHint(str) {
+    if (str.length == 0) { 
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "gethint.php?q=" + str, true);
+        xmlhttp.send();
+    }
+}
+function submitform (form) {
+    srch1= form.srch.value;
+    region1= form.region.value;
+    near1= form.near.value;
+    print_table();
+}
+
+function print_table(){
+    var xmlhttp;
+    var srch=srch1.replace(/\s/g , "-");
+    var region=region1.replace(/\s/g , "-");
+    var near=near1.replace(/\s/g , "-");
+    if (window.XMLHttpRequest)
+         {// code for IE7+, Firefox, Chrome, Opera, Safari
+         xmlhttp=new XMLHttpRequest();
+         }
+    else
+      {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    if(srch1==""||region1==""){
+        window.alert("Please enter Search and Region");
+    }
+    else{
+        document.getElementById("table_region").innerHTML="Please Wait...Loading...";
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("table_region").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "test-scrap2.php?srch=" + srch + "&near=" + near + "&region=" + region + "&page=1", true);
+        xmlhttp.send();
+    }
+}
+
+function next_table(){
+    if(srch1==""){
+        window.alert("Please submit the values first.");
+    }
+    else{
+        var xmlhttp;
+        page=page+1;
+        var srch=srch1.replace(/\s/g , "-");
+        var region=region1.replace(/\s/g , "-");
+        var near=near1.replace(/\s/g , "-");
+        document.getElementById("table_region").innerHTML="Please Wait...Loading page-" + page + "...";
+        if (window.XMLHttpRequest)
+             {// code for IE7+, Firefox, Chrome, Opera, Safari
+             xmlhttp=new XMLHttpRequest();
+             }
+        else
+          {// code for IE6, IE5
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+          }
+        if(srch==""||region==""){
+            window.alert("Please enter Search and Region");
+        }
+        else{
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("table_region").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "test-scrap2.php?srch=" + srch + "&near=" + near + "&region=" + region + "&page=" + page, true);
+            xmlhttp.send();
+            
+        }
+    }
+}
+
+function prev_table(){
+    if(srch1==""){
+        window.alert("Please submit the values first");
+    }
+    else if(page==1){
+        window.alert("Option not avaible (Showing first page)");
+    }
+    else{
+        var xmlhttp;
+        page=page-1;
+        var srch=srch1.replace(/\s/g , "-");
+        var region=region1.replace(/\s/g , "-");
+        var near=near1.replace(/\s/g , "-");
+        document.getElementById("table_region").innerHTML="Please Wait...Loading page-" + page + "...";
+        if (window.XMLHttpRequest)
+             {// code for IE7+, Firefox, Chrome, Opera, Safari
+             xmlhttp=new XMLHttpRequest();
+             }
+        else
+          {// code for IE6, IE5
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+          }
+        if(srch==""||region==""){
+            window.alert("Please enter Search and Region");
+        }
+        else{
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("table_region").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "test-scrap2.php?srch=" + srch + "&near=" + near + "&region=" + region + "&page=" + page, true);
+            xmlhttp.send();
+        }
+    }
+}
+
+</script>
+</head>
+<body class="wrapper">
+<div class="container font-decoration">
+    <div class="jumbotron">
+    <h1 class="text-center text font-decoration"><strong>GoGetIt</strong></h1>
+
+    <form name="myform" method="GET">
+
+    <strong>Search for: </strong><input class="form-control" type="text" name="srch" value="" ><br>
+
+    <strong>Region: </strong><input class="form-control" type="text" name="region" onkeyup="showHint(this.value);">
+
+    <p><strong>Suggestions:</strong> <span id="txtHint"></span></p>
+
+    <strong>Near: </strong><input class="form-control" type="text" name="near"><br>
+    <div class="text-center">
+        <input type="button" class=" text-center btn btn-block btn-lg btn-success" name="button" value="Submit" onClick="submitform(this.form)"><br><br>  
+        </div>
+    <div id="table_region"></div>
+    <div class="text-center">
+
+    <button type="button" class="btn btn-info" onclick="prev_table()"><strong>Prev</strong></button>
+    
+    <button type="button" class="btn btn-info" onclick="next_table()"><strong>Next</strong></button>
+    </div>
+    </form>
+    </div>
+</div>
+</body>
+</html>
